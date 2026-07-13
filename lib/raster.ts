@@ -202,11 +202,11 @@ export function buildRasterInspection(pages: RasterPage[]): RasterInspection {
     )
     for (const segment of segments) {
       preview.push(
-        `<line x1="${offsetX + segment.x1}" y1="${segment.y1}" x2="${offsetX + segment.x2}" y2="${segment.y2}" stroke="#f97316" stroke-width="2" opacity="0.9"/>`,
+        `<line x1="${offsetX + segment.x1}" y1="${segment.y1}" x2="${offsetX + segment.x2}" y2="${segment.y2}" stroke="#6456f6" stroke-width="2" opacity="0.9"/>`,
       )
     }
     preview.push(
-      `<text x="${offsetX + 14}" y="28" fill="#0f172a" font-family="sans-serif" font-size="18" font-weight="700">${escapeXml(levelName)}</text>`,
+      `<text x="${offsetX + 14}" y="28" fill="#f6f6f6" font-family="sans-serif" font-size="18" font-weight="700">${escapeXml(levelName)}</text>`,
     )
     maximumHeight = Math.max(maximumHeight, page.height)
     offsetX += page.width + gap

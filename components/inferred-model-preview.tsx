@@ -29,7 +29,7 @@ export function InferredModelPreview({
     const host = hostRef.current
     if (!host) return
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color('#f2f4f7')
+    scene.background = new THREE.Color('#0f0f0f')
     const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 10000)
     const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -38,21 +38,21 @@ export function InferredModelPreview({
 
     const group = new THREE.Group()
     const wallMaterial = new THREE.MeshStandardMaterial({
-      color: '#ed7a43',
-      roughness: 0.75,
+      color: '#6456f6',
+      roughness: 0.72,
       metalness: 0.02,
     })
-    const doorMaterial = new THREE.MeshStandardMaterial({ color: '#38bdf8', roughness: 0.65 })
+    const doorMaterial = new THREE.MeshStandardMaterial({ color: '#1fc9c0', roughness: 0.62 })
     const windowMaterial = new THREE.MeshStandardMaterial({
-      color: '#60a5fa',
+      color: '#fb8a5b',
       transparent: true,
       opacity: 0.58,
-      roughness: 0.25,
+      roughness: 0.24,
     })
     const zoneMaterial = new THREE.MeshStandardMaterial({
-      color: '#8b5cf6',
+      color: '#46d08a',
       transparent: true,
-      opacity: 0.22,
+      opacity: 0.18,
       side: THREE.DoubleSide,
     })
     const meshById = new Map<string, THREE.Object3D>()
@@ -194,7 +194,7 @@ export function InferredModelPreview({
       selectionBox = null
       const object = id ? meshById.get(id) : undefined
       if (!object) return
-      selectionBox = new THREE.BoxHelper(object, '#f97316')
+      selectionBox = new THREE.BoxHelper(object, '#f6f6f6')
       scene.add(selectionBox)
     }
     showSelection(selectedNodeId)
@@ -210,11 +210,11 @@ export function InferredModelPreview({
     }
     renderer.domElement.addEventListener('pointerup', selectObject)
 
-    scene.add(new THREE.HemisphereLight('#ffffff', '#8793a1', 2.2))
-    const sun = new THREE.DirectionalLight('#fff6e8', 3.5)
+    scene.add(new THREE.HemisphereLight('#f6f6f6', '#232323', 1.8))
+    const sun = new THREE.DirectionalLight('#f6f6f6', 2.8)
     sun.position.copy(center).add(new THREE.Vector3(radius * 2, radius * 3, radius * 1.5))
     scene.add(sun)
-    const grid = new THREE.GridHelper(Math.max(radius * 5, 10), 20, '#aeb6c0', '#d6dbe1')
+    const grid = new THREE.GridHelper(Math.max(radius * 5, 10), 20, '#2c2c2c', '#1c1c1c')
     grid.position.y = bounds.min.y
     scene.add(grid)
 

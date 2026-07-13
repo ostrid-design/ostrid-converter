@@ -181,6 +181,7 @@ export function ConverterWorkbench() {
     }
     return filterIfcMeshModel(ifcMeshModel, selectedStoreys, new Set(excludedIfcProductIds))
   }, [directGraph, excludedIfcProductIds, ifcMeshModel, levels])
+  const selectedLevelCount = levels.filter((level) => level.selected).length
 
   async function inspect(nextFile: File) {
     const kind = sourceKindFor(nextFile)
@@ -461,14 +462,56 @@ export function ConverterWorkbench() {
         <div className="brand">
           <div className="mark">O</div>
           <div>
-            <strong>Ostrid Converter</strong>
-            <div className="brand-subtitle">Import · review · export GraphComponents</div>
+            <div className="eyebrow">Ostrid Converter</div>
+            <strong className="brand-title">Import · review · export</strong>
+            <div className="brand-subtitle">Portable GraphComponents for drawings and models</div>
           </div>
         </div>
-        <div className="row muted">
+        <div className="status-pill">
           <LockKeyhole size={14} /> Private processing
         </div>
       </header>
+      <section className="hero panel">
+        <div className="hero-copy">
+          <div className="eyebrow">Review-first pipeline</div>
+          <h1>Turn architectural sources into editable Ostrid components.</h1>
+          <p>
+            Inspect DWG, DXF, IFC, PDF, or image imports in a dark, product-ready workspace, then
+            tune the inferred floors, geometry, and native mappings before export.
+          </p>
+          <div className="hero-chips">
+            <span className="hero-chip">Import · inspect · export</span>
+            <span className="hero-chip">2D source + 3D review</span>
+            <span className="hero-chip">Local when possible</span>
+          </div>
+        </div>
+        <div className="hero-card">
+          <div className="hero-card-label">Workflow</div>
+          <div className="hero-steps">
+            <div className="hero-step">
+              <span>1</span>
+              <div>
+                <strong>Parse the source</strong>
+                <small>Detect floors, native objects, and faithful geometry.</small>
+              </div>
+            </div>
+            <div className="hero-step">
+              <span>2</span>
+              <div>
+                <strong>Review the inference</strong>
+                <small>Adjust scale, orientation, and object mappings.</small>
+              </div>
+            </div>
+            <div className="hero-step">
+              <span>3</span>
+              <div>
+                <strong>Export the bundle</strong>
+                <small>Ship a portable GraphComponent ready for Ostrid.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <div className="grid">
         <aside className="panel sidebar">
           <section className="section">
@@ -505,7 +548,7 @@ export function ConverterWorkbench() {
               }}
             >
               <div>
-                <FileUp size={25} style={{ margin: '0 auto 10px', color: 'var(--accent)' }} />
+                <FileUp size={25} style={{ margin: '0 auto 10px', color: 'var(--purple)' }} />
                 <strong>{file?.name ?? 'Drop a plan or building model'}</strong>
                 <br />
                 <small>
@@ -536,7 +579,7 @@ export function ConverterWorkbench() {
                 <div className="row">
                   <h2 className="section-title">Floors</h2>
                   <span className="muted" style={{ fontSize: 11 }}>
-                    {levels.filter((level) => level.selected).length} selected
+                    {selectedLevelCount} selected
                   </span>
                 </div>
                 {levels.map((level, index) => (

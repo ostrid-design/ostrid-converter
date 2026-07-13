@@ -159,7 +159,7 @@ export function createIfcPreviewSvg(graph: PortableGraph) {
   )
   const points = walls.flatMap((wall) => [wall.start as number[], wall.end as number[]])
   if (!points.length) {
-    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#f8fafc"/><text x="50" y="50" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="5">No wall axes found</text></svg>'
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0f0f0f"/><text x="50" y="50" text-anchor="middle" fill="#a0a0a3" font-family="sans-serif" font-size="5">No wall axes found</text></svg>'
   }
   const xs = points.map((point) => point[0] ?? 0)
   const ys = points.map((point) => point[1] ?? 0)
@@ -174,7 +174,7 @@ export function createIfcPreviewSvg(graph: PortableGraph) {
     .map((wall, index) => {
       const start = wall.start as number[]
       const end = wall.end as number[]
-      const colors = ['#f97316', '#0ea5e9', '#8b5cf6', '#10b981']
+      const colors = ['#6456f6', '#1fc9c0', '#fb8a5b', '#46d08a']
       return `<line x1="${start[0]}" y1="${-(start[1] ?? 0)}" x2="${end[0]}" y2="${-(end[1] ?? 0)}" stroke="${colors[index % colors.length]}" stroke-width="${Math.max(width / 900, 0.02)}"/>`
     })
     .join('')

@@ -33,7 +33,7 @@ export function IfcModelPreview({
     const host = hostRef.current
     if (!host) return
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color('#f2f4f7')
+    scene.background = new THREE.Color('#0f0f0f')
     const camera = new THREE.PerspectiveCamera(42, 1, 0.01, 10000)
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -120,7 +120,7 @@ export function IfcModelPreview({
         onSelectionChange?.(null)
         return
       }
-      selectionBox = new THREE.BoxHelper(hit, '#f97316')
+      selectionBox = new THREE.BoxHelper(hit, '#6456f6')
       scene.add(selectionBox)
       const nextSelection = {
         expressId: Number(hit.userData.expressId),
@@ -132,11 +132,11 @@ export function IfcModelPreview({
     }
     renderer.domElement.addEventListener('pointerup', selectProduct)
 
-    scene.add(new THREE.HemisphereLight('#ffffff', '#8793a1', 2.2))
-    const sun = new THREE.DirectionalLight('#fff6e8', 3.5)
+    scene.add(new THREE.HemisphereLight('#f6f6f6', '#232323', 1.8))
+    const sun = new THREE.DirectionalLight('#f6f6f6', 2.8)
     sun.position.copy(center).add(new THREE.Vector3(radius * 2, radius * 3, radius * 1.5))
     scene.add(sun)
-    const grid = new THREE.GridHelper(Math.max(radius * 5, 10), 20, '#aeb6c0', '#d6dbe1')
+    const grid = new THREE.GridHelper(Math.max(radius * 5, 10), 20, '#2c2c2c', '#1c1c1c')
     grid.position.y = model.bounds.min[1]
     scene.add(grid)
 

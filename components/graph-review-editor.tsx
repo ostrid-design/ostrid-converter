@@ -151,7 +151,7 @@ export function GraphReviewEditor({
           [2, 2],
           [-2, 2],
         ],
-        color: '#8b5cf6',
+        color: '#6456f6',
       },
       annotation: {
         text: 'New annotation',

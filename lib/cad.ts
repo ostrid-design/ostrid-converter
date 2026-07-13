@@ -509,7 +509,7 @@ export function buildGraph(document: CadDocument, options: ImportOptions): Built
           visible: true,
           metadata: { importLayer: entity.layer },
           polygon,
-          color: '#8b5cf6',
+          color: '#6456f6',
         }
         children.push(id)
         counts.zones += 1
@@ -601,10 +601,10 @@ export function createCadPreviewSvg(document: CadDocument) {
   const body: string[] = []
   for (const entity of drawable.slice(0, 15_000)) {
     const color = OPENING_LAYER.test(entity.layer ?? '')
-      ? '#38bdf8'
+      ? '#1fc9c0'
       : entity.type === 'DIMENSION'
-        ? '#a78bfa'
-        : '#1f2937'
+        ? '#6456f6'
+        : '#0f0f0f'
     for (const [start, end] of entitySegments(entity))
       body.push(
         `<line x1="${start.x}" y1="${-start.y}" x2="${end.x}" y2="${-end.y}" stroke="${color}" stroke-width="${Math.max(width / 1800, 0.015)}"/>`,
@@ -617,7 +617,7 @@ export function createCadPreviewSvg(document: CadDocument) {
       const point = pointOfText(entity)
       if (point)
         body.push(
-          `<text x="${point.x}" y="${-point.y}" fill="#f97316" font-size="${Math.max(width / 180, 0.16)}" font-family="sans-serif">${escapeXml(cleanText(entity.text))}</text>`,
+          `<text x="${point.x}" y="${-point.y}" fill="#0f0f0f" font-size="${Math.max(width / 180, 0.16)}" font-family="sans-serif">${escapeXml(cleanText(entity.text))}</text>`,
         )
     }
   }
