@@ -461,10 +461,10 @@ export function ConverterWorkbench() {
     <main className={`shell ${isGuideOpen ? '' : 'guide-hidden'}`}>
       <header className="topbar">
         <div className="brand">
-          <div className="mark">O</div>
+          <div aria-hidden="true" className="mark" />
           <div>
             <div className="eyebrow">Ostrid Converter</div>
-            <strong className="brand-title">Import · review · export</strong>
+            <strong className="brand-title">Import · Review · Export</strong>
             <div className="brand-subtitle">Portable GraphComponents for drawings and models</div>
           </div>
         </div>
@@ -540,7 +540,7 @@ export function ConverterWorkbench() {
         <aside className="panel sidebar">
           <section className="section">
             <div className="row">
-              <h2 className="section-title">Source drawing</h2>
+              <h2 className="section-title">Source Drawing</h2>
               {file && (
                 <button className="tab" type="button" onClick={reset}>
                   <RotateCcw size={14} />
