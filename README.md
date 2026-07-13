@@ -90,7 +90,8 @@ For Vercel deployments:
 
 1. Import this repository as a Next.js project.
 2. Keep the repository root as the project root.
-3. Connect a private Vercel Blob store and expose its generated `BLOB_READ_WRITE_TOKEN`.
+3. Connect a private Vercel Blob store. New connections use Vercel's short-lived OIDC
+   authentication automatically; legacy connections may expose a `BLOB_READ_WRITE_TOKEN`.
 4. Set `NEXT_PUBLIC_BLOB_UPLOADS_ENABLED=true` to enable direct uploads for CAD files that exceed the function request-body limit.
 5. Set a strong `CRON_SECRET` for the scheduled cleanup endpoint.
 6. Apply suitable firewall and rate limits to `/api/upload` and `/api/inspect/cad` before exposing a public deployment.

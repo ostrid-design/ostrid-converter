@@ -127,7 +127,7 @@ export async function POST(request: Request) {
     const analysis = analyzeCadDocument(document)
     const previewSvg = createCadPreviewSvg(document)
 
-    if (source.blobUrl && process.env.BLOB_READ_WRITE_TOKEN) {
+    if (source.blobUrl) {
       const draft = await put(
         `drafts/${safeName(source.fileName)}.cad.json`,
         JSON.stringify(document),

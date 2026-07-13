@@ -1,7 +1,7 @@
 import { type HandleUploadBody, handleUpload } from '@vercel/blob/client'
 
 export async function POST(request: Request) {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+  if (!process.env.BLOB_STORE_ID && !process.env.BLOB_READ_WRITE_TOKEN) {
     return Response.json({ error: 'Private Blob storage is not configured.' }, { status: 503 })
   }
   try {
