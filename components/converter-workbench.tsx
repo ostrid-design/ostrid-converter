@@ -1,7 +1,7 @@
 'use client'
 
 import { upload } from '@vercel/blob/client'
-import { Box, FileUp, LockKeyhole, RotateCcw } from 'lucide-react'
+import { Box, FileUp, LockKeyhole, RotateCcw, X } from 'lucide-react'
 import { useMemo, useRef, useState } from 'react'
 import { buildGraph, defaultCategories, metersPerUnitFor } from '../lib/cad'
 import { createComponentBundle, exportIfcModelGlb } from '../lib/component-bundle'
@@ -92,6 +92,7 @@ function withBuildingRotation(graph: PortableGraph, orientation: IfcOrientation)
 
 export function ConverterWorkbench() {
   const inputRef = useRef<HTMLInputElement>(null)
+  const [isGuideOpen, setIsGuideOpen] = useState(true)
   const [dragging, setDragging] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -457,7 +458,7 @@ export function ConverterWorkbench() {
   }
 
   return (
-    <main className="shell">
+    <main className={`shell ${isGuideOpen ? '' : 'guide-hidden'}`}>
       <header className="topbar">
         <div className="brand">
           <div className="mark">O</div>
@@ -467,51 +468,74 @@ export function ConverterWorkbench() {
             <div className="brand-subtitle">Portable GraphComponents for drawings and models</div>
           </div>
         </div>
-        <div className="status-pill">
-          <LockKeyhole size={14} /> Private processing
+        <div className="topbar-actions">
+          <button
+            className="guide-toggle"
+            type="button"
+            aria-controls="review-guide"
+            aria-expanded={isGuideOpen}
+            onClick={() => setIsGuideOpen((current) => !current)}
+          >
+            {isGuideOpen ? 'Hide guide' : 'Show guide'}
+          </button>
+          <div className="status-pill">
+            <LockKeyhole size={14} /> Private processing
+          </div>
         </div>
       </header>
-      <section className="hero panel">
-        <div className="hero-copy">
-          <div className="eyebrow">Review-first pipeline</div>
-          <h1>Turn architectural sources into editable Ostrid components.</h1>
-          <p>
-            Inspect DWG, DXF, IFC, PDF, or image imports in a dark, product-ready workspace, then
-            tune the inferred floors, geometry, and native mappings before export.
-          </p>
-          <div className="hero-chips">
-            <span className="hero-chip">Import · inspect · export</span>
-            <span className="hero-chip">2D source + 3D review</span>
-            <span className="hero-chip">Local when possible</span>
-          </div>
-        </div>
-        <div className="hero-card">
-          <div className="hero-card-label">Workflow</div>
-          <div className="hero-steps">
-            <div className="hero-step">
-              <span>1</span>
-              <div>
-                <strong>Parse the source</strong>
-                <small>Detect floors, native objects, and faithful geometry.</small>
-              </div>
-            </div>
-            <div className="hero-step">
-              <span>2</span>
-              <div>
-                <strong>Review the inference</strong>
-                <small>Adjust scale, orientation, and object mappings.</small>
-              </div>
-            </div>
-            <div className="hero-step">
-              <span>3</span>
-              <div>
-                <strong>Export the bundle</strong>
-                <small>Ship a portable GraphComponent ready for Ostrid.</small>
-              </div>
+      {isGuideOpen && (
+        <section className="hero panel" id="review-guide">
+          <div className="hero-copy">
+            <div className="eyebrow">Review-first pipeline</div>
+            <h1>Turn architectural sources into editable Ostrid components.</h1>
+            <p>
+              Inspect DWG, DXF, IFC, PDF, or image imports in a dark, product-ready workspace, then
+              tune the inferred floors, geometry, and native mappings before export.
+            </p>
+            <div className="hero-chips">
+              <span className="hero-chip">Import · inspect · export</span>
+              <span className="hero-chip">2D source + 3D review</span>
+              <span className="hero-chip">Local when possible</span>
             </div>
           </div>
-        </div>
-      </section>
+          <div className="hero-card">
+            <div className="hero-card-heading">
+              <div className="hero-card-label">Workflow</div>
+              <button
+                className="hero-close"
+                type="button"
+                aria-label="Close workflow guide"
+                onClick={() => setIsGuideOpen(false)}
+              >
+                <X size={15} />
+              </button>
+            </div>
+            <div className="hero-steps">
+              <div className="hero-step">
+                <span>1</span>
+                <div>
+                  <strong>Parse the source</strong>
+                  <small>Detect floors, native objects, and faithful geometry.</small>
+                </div>
+              </div>
+              <div className="hero-step">
+                <span>2</span>
+                <div>
+                  <strong>Review the inference</strong>
+                  <small>Adjust scale, orientation, and object mappings.</small>
+                </div>
+              </div>
+              <div className="hero-step">
+                <span>3</span>
+                <div>
+                  <strong>Export the bundle</strong>
+                  <small>Ship a portable GraphComponent ready for Ostrid.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
       <div className="grid">
         <aside className="panel sidebar">
           <section className="section">

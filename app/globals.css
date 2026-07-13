@@ -76,12 +76,23 @@ button {
   overflow: hidden;
 }
 
+.shell.guide-hidden {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
   min-width: 0;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .brand {
@@ -145,6 +156,34 @@ button {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
+.guide-toggle,
+.hero-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--hairline);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-2);
+  transition:
+    border-color 160ms var(--ease),
+    background-color 160ms var(--ease),
+    color 160ms var(--ease);
+}
+
+.guide-toggle {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.guide-toggle:hover,
+.hero-close:hover {
+  border-color: var(--purple-line);
+  background: var(--purple-soft);
+  color: var(--text);
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(280px, 360px);
@@ -206,6 +245,21 @@ button {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)), var(--field);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.hero-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hero-close {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  padding: 0;
+  border-radius: 9px;
 }
 
 .hero-card-label {
