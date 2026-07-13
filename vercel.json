@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "functions": {
+    "app/api/inspect/cad/route.ts": {
+      "maxDuration": 300,
+      "memory": 2048
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/cleanup",
+      "schedule": "17 3 * * *"
+    }
+  ]
+}
