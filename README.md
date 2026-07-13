@@ -95,6 +95,7 @@ For Vercel deployments:
 4. Set `NEXT_PUBLIC_BLOB_UPLOADS_ENABLED=true` to enable direct uploads for CAD files that exceed the function request-body limit.
 5. Set a strong `CRON_SECRET` for the scheduled cleanup endpoint.
 6. Apply suitable firewall and rate limits to `/api/upload` and `/api/inspect/cad` before exposing a public deployment.
+7. Set `NEXT_PUBLIC_SITE_URL` to the canonical public origin (for example, `https://converter.example.com`) when using a custom domain. This keeps canonical links, `sitemap.xml`, `robots.txt`, and social cards pointed at the production site.
 
 The included `vercel.json` configures the CAD inspection function and daily cleanup job. Hosted CAD sources are deleted immediately after parsing when possible. Private draft links expire after 15 minutes, and scheduled cleanup removes remaining drafts.
 
