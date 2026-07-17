@@ -1,0 +1,21 @@
+#!/bin/sh
+# Feed this commit's Changelog-* trailers into the changelog CMS that lives
+# in the (private) ostrid-web checkout, which publishes updates.ostrid.design.
+# Set OSTRID_WEB_DIR if ostrid-web is not a sibling of this repo.
+
+[ -n "$OSTRID_CHANGELOG_HOOK_RUNNING" ] && exit 0
+
+root=$(git rev-parse --show-toplevel)
+web="${OSTRID_WEB_DIR:-$root/../ostrid-web}"
+script="$web/updates/scripts/changelog-collect.mjs"
+
+if [ ! -f "$script" ]; then
+  echo "changelog: ostrid-web checkout not found at $web (set OSTRID_WEB_DIR)." >&2
+  echo "changelog: this commit's Changelog-* notes were NOT collected — run the collector from ostrid-web later; it scans this repo's history." >&2
+  exit 0
+fi
+
+OSTRID_CHANGELOG_HOOK_RUNNING=1 node "$script" --autocommit ||
+  echo "changelog: collection failed — run 'node $script --autocommit' manually" >&2
+
+exit 0

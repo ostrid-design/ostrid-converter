@@ -1,0 +1,41 @@
+#!/bin/sh
+# Every commit must classify itself for the public changelog
+# (updates.ostrid.design). See AGENTS.md → "Changelog protocol".
+
+msg_file="$1"
+
+first_line=$(sed -n '1p' "$msg_file")
+case "$first_line" in
+  Merge\ *|Revert\ *|fixup!*|squash!*|amend!*) exit 0 ;;
+esac
+
+body=$(grep -v '^#' "$msg_file")
+
+printf '%s\n' "$body" | grep -qiE '^Changelog: *(skip|none|internal) *$' && exit 0
+printf '%s\n' "$body" | grep -qE '^Changelog-(New|Improved|Fixed): +[^ ]' && exit 0
+
+cat >&2 <<'EOF'
+
+✖ Commit rejected: missing changelog classification.
+
+Every commit must end with changelog trailers. Either mark it internal:
+
+    Changelog: skip
+
+or declare what users should see on updates.ostrid.design (repeatable,
+one user-facing sentence each — plain product language, no internals):
+
+    Changelog-New: <something users can now do>
+    Changelog-Improved: <something that works better>
+    Changelog-Fixed: <something that was broken and now works>
+    Changelog-Title: <catchy title for today's changelog entry>   (optional)
+    Changelog-Intro: <one-line intro for today's entry>           (optional)
+
+Example:
+
+    Support DWG uploads in the converter
+
+    Changelog-New: The Ostrid Converter now accepts DWG drawings alongside PDF and DXF.
+
+EOF
+exit 1

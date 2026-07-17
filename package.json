@@ -5,7 +5,7 @@
   "license": "GPL-3.0-or-later",
   "type": "module",
   "scripts": {
-    "postinstall": "node scripts/copy-web-ifc-wasm.mjs",
+    "postinstall": "node scripts/copy-web-ifc-wasm.mjs && (git config core.hooksPath .githooks || true)",
     "prebuild": "node scripts/copy-web-ifc-wasm.mjs",
     "dev": "next dev --port 3010",
     "build": "next build",
